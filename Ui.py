@@ -21,11 +21,14 @@ class Terminal(Ui):
     def run(self):
         game = Game()
         while True:
-            print(game)
+            print(game.board)
             print(f"It is player {game.pturn}s turn!")
             print("Please enter the row and column you want to play in")
             row = int(input("Enter the row: "))
             col = int(input("Enter the column: "))
             game.play(row, col)
-            if game.winner != False:
+            winner = game.get_winner()
+            if winner != 0:
                 break
+        print(game.board)
+        print(f"Congratulations! Player {winner} is the winner!")

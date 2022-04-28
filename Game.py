@@ -1,3 +1,6 @@
+import numpy as np
+import itertools
+
 
 class Game:
 
@@ -5,7 +8,7 @@ class Game:
         self.blank = "-"
         self.pturn = 1
         self.psymbol = {1: "X", 2: "O"}
-        self.board = [["-", "-", "-"],["-", "-", "-"],["-", "-", "-"]]
+        self.board = np.array([["-", "-", "-"],["-", "-", "-"],["-", "-", "-"]])
 
     def __repr__(self):
         return self.board
@@ -21,11 +24,18 @@ class Game:
             # location has already been played
             pass
     
-    @property
-    def winner(self):
-        for row in range(3):
-            if self.board[row][0] == self.board[row][1] and self.board[row][0] == self.board[row][2]:
-                pass
+
+    def get_winner(self):
+        for line in itertools.chain(
+                        self.board,
+                        self.board.transpose(),
+                        (self.board.diagonal(),
+                        self.board.transpose().diagonal())):
+            if (line==self.psymbol[1]).all():
+                return 1
+            elif (line==self.psymbol[2]).all():
+                return 2
+        return 0
 
 if __name__ == "__main__":
     pass
