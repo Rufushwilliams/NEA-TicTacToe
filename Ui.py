@@ -24,11 +24,27 @@ class Terminal(Ui):
             print(game.board)
             print(f"It is player {game.pturn}s turn!")
             print("Please enter the row and column you want to play in")
-            row = int(input("Enter the row: "))
-            col = int(input("Enter the column: "))
+            while True:
+                while True:
+                    row = int(input("Enter the row: "))
+                    if 1 <= row and row <= 3:
+                        break
+                while True:
+                    col = int(input("Enter the column: "))
+                    if 1 <= col and col <= 3:
+                        break
+                if game.posplay(row, col):
+                    break
+                else:
+                    print("That position has already been played!")
             game.play(row, col)
             winner = game.get_winner()
             if winner != 0:
                 break
+            elif game.numplays == 9:
+                break
         print(game.board)
-        print(f"Congratulations! Player {winner} is the winner!")
+        if winner != 0:
+            print(f"Congratulations! Player {winner} is the winner!")
+        else:   
+            print("Sorry, your game ended in a draw.")
