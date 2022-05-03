@@ -29,10 +29,12 @@ class Terminal(Ui):
                     row = int(input("Enter the row: "))
                     if 1 <= row and row <= 3:
                         break
+                row -= 1
                 while True:
                     col = int(input("Enter the column: "))
                     if 1 <= col and col <= 3:
                         break
+                col -= 1
                 if game.posplay(row, col):
                     break
                 else:
