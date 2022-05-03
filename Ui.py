@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import tkinter as tk
+from tkinter import E, W, ttk
 from Game import Game
 
 class Ui(ABC):
@@ -11,31 +12,26 @@ class Ui(ABC):
 class Gui(Ui):
     def __init__(self):
         root = tk.Tk()
+        root.geometry("300x200")
+        root.resizable(True, True)
         root.title("Tic Tac Toe")
-        frame = tk.Frame(root)
-        frame.pack()
+        frame = ttk.Frame(root)
+        frame.grid()
         self.root = root
 
-        tk.Button(
+        ttk.Button(
             frame,
-            text='Show Help',
-            command= self.gamehelp).pack(fill="x")
-
-        tk.Button(
-            frame,
-            text='Play Game',
-            command= self.playgame).pack(fill="x")
-
-        tk.Button(
-            frame,
-            text='Quit',
-            command=root.quit).pack(fill="x")
+            text="Quit",
+            command= root.quit).grid(column=1, row=1)
 
     def gamehelp(self):
         pass
     
     def playgame(self):
         game = Game()
+
+
+
 
     def run(self):
         self.root.mainloop()
