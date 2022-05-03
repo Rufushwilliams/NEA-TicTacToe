@@ -21,7 +21,7 @@ class Terminal(Ui):
     def run(self):
         game = Game()
         while True:
-            print(game.board)
+            print(game)
             print(f"It is player {game.pturn}s turn!")
             print("Please enter the row and column you want to play in")
             while True:
@@ -45,7 +45,7 @@ class Terminal(Ui):
                 break
             elif game.numplays == 9:
                 break
-        print(game.board)
+        print(game)
         if winner != 0:
             print(f"Congratulations! Player {winner} is the winner!")
         else:   
