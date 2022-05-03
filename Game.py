@@ -12,7 +12,7 @@ class Game:
         self.board = np.array([["-", "-", "-"],["-", "-", "-"],["-", "-", "-"]])
 
     def __repr__(self):
-        return " 123\n" + "\n".join(str(i+1) + "".join(row) for i, row in enumerate(self.board))
+        return " 1 2 3\n" + "\n".join(str(i+1) + " ".join(row) for i, row in enumerate(self.board))
     
     def posplay(self, row, col):
         if self.board[row][col] == self.blank:

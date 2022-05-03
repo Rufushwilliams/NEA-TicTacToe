@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import tkinter as tk
 from Game import Game
 
 class Ui(ABC):
@@ -9,10 +10,35 @@ class Ui(ABC):
 
 class Gui(Ui):
     def __init__(self):
+        root = tk.Tk()
+        root.title("Tic Tac Toe")
+        frame = tk.Frame(root)
+        frame.pack()
+        self.root = root
+
+        tk.Button(
+            frame,
+            text='Show Help',
+            command= self.gamehelp).pack(fill="x")
+
+        tk.Button(
+            frame,
+            text='Play Game',
+            command= self.playgame).pack(fill="x")
+
+        tk.Button(
+            frame,
+            text='Quit',
+            command=root.quit).pack(fill="x")
+
+    def gamehelp(self):
         pass
+    
+    def playgame(self):
+        game = Game()
 
     def run(self):
-        pass
+        self.root.mainloop()
 
 class Terminal(Ui):
     def __init__(self):
