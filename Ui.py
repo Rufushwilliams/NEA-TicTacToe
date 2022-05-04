@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import tkinter as tk
-from tkinter import E, W, ttk
+from tkinter import Toplevel
 from Game import Game
 
 class Ui(ABC):
@@ -15,20 +15,51 @@ class Gui(Ui):
         root.geometry("300x200")
         root.resizable(True, True)
         root.title("Tic Tac Toe")
-        frame = ttk.Frame(root)
-        frame.grid()
+        frame = tk.Frame(root)
+        frame.pack()
         self.root = root
 
-        ttk.Button(
+        tk.Button(
+            frame,
+            text="Play",
+            command= self.playgame).pack(fill=tk.X)
+        tk.Button(
+            frame,
+            text="Help",
+            command= self.gamehelp).pack(fill=tk.X)
+        tk.Button(
             frame,
             text="Quit",
-            command= root.quit).grid(column=1, row=1)
+            command= root.quit).pack(fill=tk.X)
 
     def gamehelp(self):
         pass
     
     def playgame(self):
-        game = Game()
+        self.game = Game()
+        gameWindow = Toplevel(self.root)
+        frame = tk.Frame(gameWindow)
+        frame.grid(row=0, col=0)
+
+        self.buttons = [[None for _ in range(3)] for _ in range(3)]
+        b = tk.StringVar()
+        b.set(self.game.at(row+1,col+1))
+
+        for row in range(3):
+            for col in range(3):
+                cmd = lambda r=row,c=col : self.playmove(r,c)
+                tk.Button(
+                    frame,
+                    textvariable=b,
+                    command=cmd).grid(row=row, col=col)
+                self.buttons[row][col] = b
+
+        tk.Button(gameWindow, text="Dismiss", command=gameWindow.destroy).grid(row=1,column=0)
+    
+    def playmove(self, row, col):
+        pass
+
+            
 
 
 
