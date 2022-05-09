@@ -11,6 +11,7 @@ class Ui(ABC):
 
 class Gui(Ui):
     def __init__(self):
+        self.game = Game()
         root = tk.Tk()
         root.geometry("300x200")
         root.resizable(True, True)
@@ -36,28 +37,35 @@ class Gui(Ui):
         pass
     
     def playgame(self):
-        self.game = Game()
         gameWindow = Toplevel(self.root)
-        frame = tk.Frame(gameWindow)
-        frame.grid(row=0, col=0)
+        gameWindow.geometry("300x200")
+
+        tk.Button(gameWindow, text="Dismiss", command=gameWindow.destroy).grid(row=0,column=4)
 
         self.buttons = [[None for _ in range(3)] for _ in range(3)]
-        b = tk.StringVar()
-        b.set(self.game.at(row+1,col+1))
 
         for row in range(3):
             for col in range(3):
+                txt = tk.StringVar()
+                txt.set(" ")
                 cmd = lambda r=row,c=col : self.playmove(r,c)
                 tk.Button(
-                    frame,
-                    textvariable=b,
-                    command=cmd).grid(row=row, col=col)
-                self.buttons[row][col] = b
+                    gameWindow,
+                    textvariable=txt,
+                    width=6,
+                    height=3,
+                    command=cmd).grid(row=row, column=col)
+                self.buttons[row][col] = txt
 
-        tk.Button(gameWindow, text="Dismiss", command=gameWindow.destroy).grid(row=1,column=0)
+        
     
     def playmove(self, row, col):
-        pass
+        self.buttons[row][col].set(self.game.psymbol[self.game.pturn])
+        self.game.numplays += 1
+        if self.game.pturn == 1:
+            self.game.pturn = 2
+        else:
+            self.game.pturn = 1
 
             
 
